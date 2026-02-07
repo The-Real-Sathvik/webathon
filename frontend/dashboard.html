@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - CollabX</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/fonts.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --color-white: #FFFFFF;
+      --color-black: #000000;
+      --color-bg-dark: #09090B;
+      --color-bg-card: #18181B;
+      --color-border: #27272A;
+      --color-text-primary: #FFFFFF;
+      --color-text-secondary: #9F9FA9;
+      --color-text-muted: #71717B;
+      --color-tag-bg: #27272A;
+      --color-tag-text: #D4D4D8;
+      --color-accent-blue: #3B82F6;
+      --color-bg-red-soft: rgba(70, 8, 9, 0.2);
+      --color-text-red: #FF6467;
+      --color-border-red: rgba(130, 24, 26, 0.3);
+    }
+
+    body {
+      font-family: 'Supreme', sans-serif;
+      background-color: var(--color-bg-dark);
+      color: var(--color-white);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Technor', sans-serif;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(9, 9, 11, 0.8);
+      border-bottom: 1px solid var(--color-border);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      height: 80px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-container {
+      width: 100%;
+      max-width: 1472px;
+      margin: 0 auto;
+      padding: 0 96px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-white);
+      text-decoration: none;
+      letter-spacing: -2.5%;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-link {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .nav-link.active {
+      color: var(--color-white);
+      font-weight: 700;
+    }
+
+    .nav-link:hover {
+      color: var(--color-white);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav-icon {
+      color: var(--color-white);
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+    }
+
+    .nav-profile {
+      width: 32px;
+      height: 32px;
+      background: #3F3F47;
+      border-radius: 50%;
+      border: 1px solid #52525C;
+      overflow: hidden;
+    }
+
+    /* Mobile Menu Button - Added */
+    .mobile-menu-btn {
+      display: none;
+      color: var(--color-white);
+      cursor: pointer;
+    }
+
+    /* Main Content */
+    main {
+      padding-top: 128px;
+      padding-bottom: 80px;
+      max-width: 1472px;
+      margin: 0 auto;
+      padding-left: 96px;
+      padding-right: 96px;
+    }
+
+    /* Page Header */
+    .page-header {
+      margin-bottom: 64px;
+      max-width: 896px;
+    }
+
+    .page-header h2 {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--color-text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .page-header h1 {
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--color-white);
+    }
+
+    /* Sections */
+    .dashboard-section {
+      margin-bottom: 64px;
+      max-width: 896px;
+    }
+
+    .section-header {
+      margin-bottom: 24px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .section-header h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-white);
+      margin-bottom: 4px;
+    }
+
+    .section-header p {
+      font-size: 14px;
+      color: var(--color-text-muted);
+    }
+
+    /* Card Styles */
+    .card {
+      background: var(--color-bg-card);
+      border: 1px solid rgba(63, 63, 71, 0.5);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .card-left {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      flex: 2;
+    }
+
+    .card-avatar {
+      width: 48px;
+      height: 48px;
+      background: var(--color-tag-bg);
+      border-radius: 50%;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .card-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .card-info h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 0;
+      line-height: 1.5;
+    }
+
+    .card-info p {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+    }
+
+    .card-middle {
+      flex: 2;
+      padding: 0 24px;
+    }
+
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-tag {
+      background: var(--color-tag-bg);
+      color: var(--color-tag-text);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      line-height: 1.33;
+    }
+
+    .card-right {
+      flex: 1.5;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    /* Contact Box Styles */
+    .contact-box {
+      background: rgba(9, 9, 11, 0.5);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 16px;
+      width: 100%;
+      max-width: 250px;
+    }
+
+    .contact-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-muted);
+      margin-bottom: 12px;
+    }
+
+    .contact-item {
+      font-size: 14px;
+      color: var(--color-white);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      word-break: break-all;
+      /* Prevents long emails from breaking layout */
+    }
+
+    .contact-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .contact-item a {
+      color: var(--color-white);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+
+    /* Action Buttons */
+    .actions-container {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .btn {
+      border-radius: 9999px;
+      padding: 10px 24px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-reject {
+      background: transparent;
+      color: var(--color-text-muted);
+      font-weight: 400;
+      font-size: 14px;
+    }
+
+    .btn-reject:hover {
+      color: var(--color-white);
+    }
+
+    .btn-accept {
+      background: var(--color-white);
+      color: var(--color-black);
+    }
+
+    .btn-accept:hover {
+      background: #E4E4E7;
+      transform: translateY(-1px);
+    }
+
+    /* Status Badges */
+    .status-badge {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+    }
+
+    .status-badge.rejected {
+      background: var(--color-bg-red-soft);
+      color: var(--color-text-red);
+      border: 1px solid var(--color-border-red);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 14px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+
+      .nav-container,
+      main {
+        padding-left: 48px;
+        padding-right: 48px;
+      }
+
+      .card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+      }
+
+      .card-middle,
+      .card-right {
+        width: 100%;
+        padding: 0;
+        justify-content: flex-start;
+      }
+
+      /* Adjust action buttons on tablet */
+      .card-right .actions-container {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .contact-box {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      /* Mobile Spacing */
+      main {
+        padding-top: 100px;
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      .nav-container {
+        padding: 0 24px;
+      }
+
+      /* Navigation Toggle */
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .page-header h1 {
+        font-size: 28px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="index.html" class="nav-logo">CollabX</a>
+        <div class="nav-links">
+          <a href="discover.html" class="nav-link">Discover</a>
+          <a href="dashboard.html" class="nav-link active">Dashboard</a>
+          <a href="MyProfile.html" class="nav-link">My Profile</a>
+        </div>
+      </div>
+      <div class="nav-right">
+        <i data-lucide="menu" class="nav-icon mobile-menu-btn"></i>
+
+        <i data-lucide="bell" class="nav-icon"></i>
+        <button id="logoutBtn"
+          style="background: transparent; color: var(--color-text-secondary); padding: 10px 20px; border: 1px solid var(--color-border); cursor: pointer; border-radius: 9999px; font-size: 14px; font-weight: 500; margin-right: 10px; transition: all 0.2s;">Logout</button>
+
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h2 id="userGreeting">Hello, User</h2>
+      <h1>Manage your collaboration requests</h1>
+    </div>
+
+    <div class="dashboard-section">
+      <div class="section-header">
+        <h2>Matches</h2>
+        <p>You can now contact your matched partners</p>
+        <div id="matches"></div>
+      </div>
+
+
+    </div>
+
+    <div class="dashboard-section">
+      <div class="section-header">
+        <h2>Received Requests</h2>
+
+        <div id="receivedRequests"></div>
+      </div>
+
+
+    </div>
+
+    <div class="dashboard-section">
+      <div class="section-header">
+        <h2>Sent Requests</h2>
+        <div id="sentRequests"></div>
+      </div>
+
+
+    </div>
+  </main>
+
+
+
+
+
+  <script type="module" src="js/config.js"></script>
+  <script src="js/logout.js"></script>
+  <script type="module" src="js/dashboard.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+
+</html>

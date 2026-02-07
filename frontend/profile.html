@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Profile - CollabX</title>
+  <link rel="stylesheet" href="css/fonts.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --color-white: #FFFFFF;
+      --color-black: #000000;
+      --color-bg-dark: #18181B;
+      --color-bg-darker: #09090B;
+      --color-border: #27272A;
+      --color-border-light: rgba(39, 39, 42, 0.5);
+      --color-text-primary: #FFFFFF;
+      --color-text-secondary: #9F9FA9;
+      --color-text-muted: #71717B;
+      --color-placeholder: #52525C;
+    }
+
+    body {
+      font-family: 'Supreme', sans-serif;
+      background: var(--color-black);
+      color: var(--color-white);
+      line-height: 1.6;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Technor', sans-serif;
+    }
+
+    /* Background Image */
+    .background-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    /* Logo */
+    .logo {
+      position: fixed;
+      top: 50px;
+      left: 61px;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -2.5%;
+      color: var(--color-white);
+      z-index: 100;
+    }
+
+    /* Logout Button */
+    .btn-logout {
+      position: fixed;
+      top: 50px;
+      right: 61px;
+      padding: 10px 24px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: var(--color-white);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    .btn-logout:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Main Container */
+    .profile-container {
+      position: relative;
+      max-width: 896px;
+      margin: 32px auto;
+      background: var(--color-bg-dark);
+      border: 1px solid var(--color-border);
+      border-radius: 32px;
+      box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+      z-index: 1;
+    }
+
+    /* Header */
+    .profile-header {
+      padding: 49px 49px 0;
+      text-align: center;
+    }
+
+    .profile-header h1 {
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--color-white);
+      margin-bottom: 8px;
+    }
+
+    .profile-header p {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.43;
+    }
+
+    /* Form Container */
+    .form-container {
+      padding: 65px 65px 48px;
+    }
+
+    .form-section {
+      margin-bottom: 48px;
+    }
+
+    .form-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-header {
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: 24px;
+    }
+
+    .section-header h2 {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--color-white);
+    }
+
+    .section-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: 24px;
+    }
+
+    .section-header-row h2 {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--color-white);
+    }
+
+    .privacy-note {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      line-height: 1.33;
+    }
+
+    /* Form Fields */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 0;
+    }
+
+    .form-row-single {
+      display: block;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--color-text-secondary);
+      line-height: 1.43;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--color-bg-darker);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      font-size: 16px;
+      color: var(--color-white);
+      font-family: Arial, sans-serif;
+      line-height: 1.15;
+      transition: all 0.3s;
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 16px;
+      padding-right: 48px;
+    }
+
+    select option {
+      background: var(--color-bg-darker);
+      color: var(--color-white);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--color-placeholder);
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--color-white);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    input:hover,
+    textarea:hover,
+    select:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 54px;
+    }
+
+    /* Skills Section */
+    .skills-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+      min-height: 0;
+    }
+
+    .skill-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      font-size: 14px;
+      color: var(--color-white);
+    }
+
+    .skill-tag button {
+      background: none;
+      border: none;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      font-size: 16px;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .skill-tag button:hover {
+      color: var(--color-white);
+    }
+
+    /* Suggested Skills Pills */
+    .suggested-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .suggested-skill-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .suggested-skill-pill:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.4);
+      color: var(--color-white);
+    }
+
+    .suggested-skill-pill.added {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: var(--color-white);
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    .suggested-skill-pill svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Add Button */
+    .add-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: var(--color-text-secondary);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 0;
+      margin-top: 12px;
+      transition: color 0.3s;
+    }
+
+    .add-button:hover {
+      color: var(--color-white);
+    }
+
+    .add-button svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Project List */
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .project-item {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .project-fields {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .project-item input {
+      width: 100%;
+    }
+
+    .project-item textarea {
+      width: 100%;
+      min-height: 60px;
+    }
+
+    .remove-button {
+      background: none;
+      border: none;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      font-size: 20px;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.3s;
+    }
+
+    .remove-button:hover {
+      color: #DC2626;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      padding-top: 48px;
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .btn {
+      padding: 14px 32px;
+      font-size: 14px;
+      font-weight: 400;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      line-height: 1.43;
+    }
+
+    .btn-skip {
+      background: none;
+      color: var(--color-text-muted);
+    }
+
+    .btn-skip:hover {
+      color: var(--color-white);
+    }
+
+    .btn-primary {
+      background: var(--color-white);
+      color: var(--color-black);
+      font-weight: 700;
+      font-size: 16px;
+      padding: 14px 44px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0px 8px 24px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .profile-container {
+        margin: 24px 24px;
+      }
+
+      .form-container {
+        padding: 48px 48px 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .logo {
+        left: 24px;
+        top: 24px;
+      }
+
+      .profile-container {
+        margin: 80px 16px 24px;
+        border-radius: 24px;
+      }
+
+      .profile-header {
+        padding: 32px 24px 0;
+      }
+
+      .form-container {
+        padding: 32px 24px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .btn,
+      .btn-primary {
+        width: 100%;
+      }
+    }
+
+    /* Success/Error messages */
+    .message {
+      padding: 12px 16px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+
+    .message.success {
+      background: rgba(34, 197, 94, 0.1);
+      color: #4ADE80;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .message.error {
+      background: rgba(239, 68, 68, 0.1);
+      color: #F87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background-image">
+    <div data-us-project="p7Ff6pfTrb5Gs59C7nLC" class="absolute w-full h-full left-0 top-0 -z-10"
+      style="position: absolute; width: 100%; height: 100%; left: 0; top: 0; z-index: 0;"></div>
+  </div>
+  <div class="logo">CollabX</div>
+  <button id="logoutBtn"
+    style="background: transparent; color: var(--color-text-secondary); padding: 10px 20px; border: 1px solid var(--color-border); cursor: pointer; border-radius: 9999px; font-size: 14px; font-weight: 500; margin-right: 10px; transition: all 0.2s;">Logout</button>
+
+  <div class="profile-container">
+    <div class="profile-header">
+      <h1>Create your profile</h1>
+      <p>This helps others discover and match with you</p>
+    </div>
+
+    <div class="form-container">
+      <form id="profileForm">
+        <!-- Basic Details Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <h2>Basic Details</h2>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="profileImage">Profile Picture</label>
+              <div style="display: flex; align-items: center; gap: 16px;">
+                <img id="imagePreview" src="images/avatar1.jpg" alt="Preview"
+                  style="background: #333; width: 64px; height: 64px; border-radius: 50%; object-fit: cover;">
+                <input type="file" id="profileImage" name="profileImage" accept="image/*">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="fullname">Full Name</label>
+              <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+              <label for="bio">Short Bio</label>
+              <input type="text" id="bio" name="bio" placeholder="Briefly describe yourself (1–2 lines)">
+            </div>
+          </div>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <h2>Skills</h2>
+          </div>
+          <div class="form-group">
+            <div class="suggested-skills" id="suggestedSkills">
+              <button type="button" class="suggested-skill-pill" data-skill="HTML">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                HTML
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="CSS">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                CSS
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="JavaScript">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                JavaScript
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="React">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                React
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="Node.js">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                Node.js
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="Python">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                Python
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="Java">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                Java
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="TypeScript">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                TypeScript
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="MongoDB">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                MongoDB
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="SQL">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                SQL
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="Git">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                Git
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="Docker">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                Docker
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="AI/ML">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                AI/ML
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="GenAI">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                GenAI
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="UI/UX Design">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                UI/UX Design
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="Figma">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                Figma
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="AWS">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                AWS
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="Flutter">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                Flutter
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="React Native">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                React Native
+              </button>
+              <button type="button" class="suggested-skill-pill" data-skill="DevOps">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3.33 8h9.34M8 3.33v9.34" />
+                </svg>
+                DevOps
+              </button>
+            </div>
+            <p class="skills-label">Selected:</p>
+            <div class="skills-container" id="skillsContainer"></div>
+            <input type="text" id="skillInput" placeholder="Add a custom skill and press enter">
+          </div>
+        </div>
+        
+        <!-- Projects Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <h2>Projects</h2>
+          </div>
+          <div class="project-list" id="projectList">
+            <div class="project-item">
+              <div class="project-fields">
+                <input type="url" name="projectUrl[]" placeholder="GitHub Repo / Live Project Link">
+                <textarea name="projectAbstract[]" placeholder="Brief description of the project"></textarea>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="add-button" id="addProjectBtn">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.33">
+              <path d="M3.33 8h9.34M8 3.33v9.34" />
+            </svg>
+            Add another project
+          </button>
+        </div>
+        <!-- Availability Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <h2>Availability</h2>
+          </div>
+          <div class="form-group">
+            <label for="availability">Availability</label>
+            <select id="availability" name="availability" required>
+              <option value="" disabled selected>Select your availability</option>
+              <option value="Full-time">Full-time</option>
+              <option value="Part-time">Part-time</option>
+              <option value="Weekends Only">Weekends Only</option>
+              <option value="Evenings Only">Evenings Only</option>
+              <option value="Flexible">Flexible</option>
+              <option value="On Project Basis">On Project Basis</option>
+              <option value="Not Available">Not Available</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Contact Details Section -->
+        <div class="form-section">
+          <div class="section-header-row">
+            <h2>Contact Details</h2>
+            <span class="privacy-note">Visible only after a successful match</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="mobile">Mobile Number</label>
+              <input type="tel" id="mobile" name="mobile" placeholder="Enter mobile number">
+            </div>
+            <div class="form-group">
+              <label for="linkedin">LinkedIn Profile</label>
+              <input type="url" id="linkedin" name="linkedin" placeholder="LinkedIn profile URL">
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <!-- <button type="button" class="btn btn-skip" id="skipBtn">Skip for now</button> -->
+          <button type="submit" class="btn btn-primary">Save & Continue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="js/config.js"></script>
+  <script type="module" src="js/profile.js"></script>
+  <script type="module" src="js/logout.js"></script>
+  <script type="module" type="text/javascript">
+    !function () { if (!window.UnicornStudio) { window.UnicornStudio = { isInitialized: !1 }; var i = document.createElement("script"); i.src = "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js", i.onload = function () { window.UnicornStudio.isInitialized || (UnicornStudio.init(), window.UnicornStudio.isInitialized = !0) }, (document.head || document.body).appendChild(i) } }();
+  </script>
+</body>
+
+</html>

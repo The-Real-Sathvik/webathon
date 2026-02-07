@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CollabX</title>
+    <link rel="stylesheet" href="css/fonts.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --color-white: #FFFFFF;
+            --color-black: #000000;
+            --color-bg-dark: #18181B;
+            --color-bg-input: #000000;
+            --color-border: #27272A;
+            --color-text-primary: #FFFFFF;
+            --color-text-secondary: #9F9FA9;
+            --color-text-muted: #71717B;
+            --color-placeholder: #52525C;
+        }
+
+        body {
+            font-family: 'Supreme', sans-serif;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Technor', sans-serif;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 1280px;
+            height: 730px;
+            background: var(--color-bg-dark);
+            border: 1px solid var(--color-border);
+            border-radius: 32px;
+            box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+        }
+
+        /* Left Panel - Form */
+        .form-panel {
+            background: linear-gradient(0deg, rgba(28, 57, 142, 0.2) 0%, rgba(89, 22, 139, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
+            padding: 80px 96px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-content {
+            max-width: 448px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -2.5%;
+            color: var(--color-white);
+            margin-bottom: 48px;
+        }
+
+        .form-header {
+            margin-bottom: 48px;
+        }
+
+        .form-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.11;
+            color: var(--color-white);
+            margin-bottom: 12px;
+        }
+
+        .form-header p {
+            font-size: 16px;
+            line-height: 1.625;
+            color: var(--color-text-secondary);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--color-white);
+            line-height: 1.43;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--color-bg-input);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            font-size: 16px;
+            color: var(--color-white);
+            line-height: 1.15;
+            transition: all 0.3s;
+        }
+
+        input::placeholder {
+            color: var(--color-placeholder);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--color-white);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        input:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px 32px;
+            background: var(--color-white);
+            color: var(--color-black);
+            border: none;
+            border-radius: 9999px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 16px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 24px rgba(255, 255, 255, 0.2);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .signup-link {
+            text-align: center;
+            font-size: 14px;
+            color: var(--color-text-muted);
+            margin-top: 24px;
+        }
+
+        .signup-link a {
+            color: var(--color-white);
+            text-decoration: none;
+            font-weight: 400;
+            transition: opacity 0.3s;
+        }
+
+        .signup-link a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* Right Panel - Image */
+        .image-panel {
+            position: relative;
+            background: var(--color-bg-dark);
+            overflow: hidden;
+        }
+
+        .image-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 50%, #ec4899 100%);
+            opacity: 0.8;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        /* Forgot Password Link */
+        .forgot-password {
+            text-align: right;
+            margin-top: -8px;
+        }
+
+        .forgot-password a {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .forgot-password a:hover {
+            color: var(--color-white);
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .login-container {
+                max-width: 640px;
+                height: auto;
+                grid-template-columns: 1fr;
+            }
+
+            .image-panel {
+                display: none;
+            }
+
+            .form-panel {
+                padding: 60px 48px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 0;
+            }
+
+            .login-container {
+                border-radius: 0;
+                min-height: 100vh;
+                height: auto;
+            }
+
+            .form-panel {
+                padding: 40px 24px;
+            }
+
+            .form-content {
+                max-width: 100%;
+            }
+
+            .form-header h1 {
+                font-size: 28px;
+            }
+
+            .form-header p {
+                font-size: 14px;
+            }
+        }
+
+        /* Error State */
+        input.error {
+            border-color: #DC2626;
+        }
+
+        .error-message {
+            font-size: 12px;
+            color: #DC2626;
+            margin-top: -8px;
+        }
+
+        /* Loading State */
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .submit-btn.loading::after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Left Panel - Form -->
+        <div class="form-panel">
+            <div class="form-content">
+                <div class="logo">CollabX</div>
+                
+                <div class="form-header">
+                    <h1>Welcome back to CollabX</h1>
+                    <p>Log in to continue finding the right project partners.</p>
+                </div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="Enter your email"
+                            required
+                            autocomplete="email"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            placeholder="Enter your password"
+                            required
+                            autocomplete="current-password"
+                        >
+                    </div>
+
+                    <button type="submit" class="submit-btn">Log In</button>
+                </form>
+
+                <div class="signup-link">
+                    Don't have an account? <a href="signup.html">Sign Up</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Atmospheric Background -->
+        <div class="image-panel">
+            <!-- <div class="image-background"></div>
+            <div class="image-overlay"></div> -->
+            <img src="images/loginn.jpg" alt="">
+        </div>
+    </div>
+
+    <script type="module" src="js/config.js"></script>
+    <script type="module" src="js/login.js"></script>
+</body>
+</html>

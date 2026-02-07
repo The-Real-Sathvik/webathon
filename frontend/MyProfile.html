@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - CollabX</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/fonts.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --color-white: #FFFFFF;
+            --color-black: #000000;
+            --color-bg-dark: #09090B;
+            --color-bg-card: #18181B;
+            --color-border: #27272A;
+            --color-text-primary: #FFFFFF;
+            --color-text-secondary: #9F9FA9;
+            --color-text-muted: #71717B;
+            --color-accent-blue: #3B82F6;
+        }
+
+        body {
+            font-family: 'Supreme', sans-serif;
+            background-color: var(--color-bg-dark);
+            color: var(--color-white);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Technor', sans-serif;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(9, 9, 11, 0.8);
+            border-bottom: 1px solid var(--color-border);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1472px;
+            margin: 0 auto;
+            padding: 0 96px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .nav-logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-white);
+            text-decoration: none;
+            letter-spacing: -2.5%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-link {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--color-white);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .btn-logout {
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--color-white);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            padding: 48px 96px;
+            max-width: 1024px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 32px;
+            margin-bottom: 48px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--color-bg-card);
+            background: var(--color-bg-card);
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .profile-bio {
+            color: var(--color-text-secondary);
+            font-size: 16px;
+            margin-bottom: 16px;
+            max-width: 600px;
+        }
+
+        .availability-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--color-accent-blue);
+            border-radius: 99px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .edit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--color-white);
+            color: var(--color-black);
+            border-radius: 99px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.2s;
+        }
+
+        .edit-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--color-white);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-tag {
+            padding: 8px 16px;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: 99px;
+            color: var(--color-text-secondary);
+            font-size: 14px;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: border-color 0.2s;
+        }
+
+        .project-card:hover {
+            border-color: var(--color-text-secondary);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .project-domain {
+            font-family: 'Technor', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--color-white);
+        }
+
+        .project-link {
+            color: var(--color-text-secondary);
+            transition: color 0.2s;
+        }
+
+        .project-link:hover {
+            color: var(--color-white);
+        }
+
+        .project-abstract {
+            color: var(--color-text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            color: var(--color-text-secondary);
+        }
+
+        .contact-item i {
+            color: var(--color-white);
+        }
+
+        .contact-item a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact-item a:hover {
+            color: var(--color-white);
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 24px;
+            }
+            .nav-links {
+                display: none;
+            }
+            main {
+                padding: 24px;
+            }
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .profile-bio {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="nav-logo">CollabX</a>
+                <div class="nav-links">
+                    <a href="discover.html" class="nav-link">Discover</a>
+                    <a href="dashboard.html" class="nav-link">Dashboard</a>
+                    <a href="MyProfile.html" class="nav-link active">My Profile</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <button id="logoutBtn" style="background: transparent; color: var(--color-text-secondary); padding: 10px 20px; border: 1px solid var(--color-border); cursor: pointer; border-radius: 9999px; font-size: 14px; font-weight: 500; margin-right: 10px; transition: all 0.2s;">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <img id="avatar" src="images/avatar1.jpg" alt="Profile">
+            </div>
+            <div class="profile-info">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                        <h1 class="profile-name" id="name">Loading...</h1>
+                        <div class="availability-badge" id="availability">
+                            <i data-lucide="clock" size="14"></i>
+                            <span>Loading...</span>
+                        </div>
+                    </div>
+                    <a href="profile.html" class="edit-btn">
+                        <i data-lucide="pencil" size="16"></i>
+                        Edit Profile
+                    </a>
+                </div>
+                <p class="profile-bio" id="bio"></p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid" id="skills">
+                <!-- Skills populated by JS -->
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid" id="projects">
+                <!-- Projects populated by JS -->
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-grid" id="contact">
+                <!-- Contact info populated by JS -->
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/config.js"></script>
+    <script type="module" src="js/logout.js"></script>
+    <script type="module" src="js/myprofile.js"></script>
+</body>
+</html>

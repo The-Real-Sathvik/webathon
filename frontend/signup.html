@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - CollabX</title>
+    <link rel="stylesheet" href="css/fonts.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --color-white: #FFFFFF;
+            --color-black: #000000;
+            --color-bg-dark: #18181B;
+            --color-bg-input: #000000;
+            --color-border: #27272A;
+            --color-text-primary: #FFFFFF;
+            --color-text-secondary: #9F9FA9;
+            --color-text-muted: #71717B;
+            --color-placeholder: #52525C;
+        }
+
+        body {
+            font-family: 'Supreme', sans-serif;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Technor', sans-serif;
+        }
+
+        .signup-container {
+            width: 100%;
+            max-width: 1280px;
+            height: 947px;
+            background: var(--color-bg-dark);
+            border: 1px solid var(--color-border);
+            border-radius: 32px;
+            box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+        }
+
+        /* Left Panel - Form */
+        .form-panel {
+            background: linear-gradient(0deg, rgba(28, 57, 142, 0.2) 0%, rgba(89, 22, 139, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
+            padding: 80px 96px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-content {
+            max-width: 448px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -2.5%;
+            color: var(--color-white);
+            margin-bottom: 48px;
+        }
+
+        .form-header {
+            margin-bottom: 48px;
+        }
+
+        .form-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.11;
+            color: var(--color-white);
+            margin-bottom: 12px;
+        }
+
+        .form-header p {
+            font-size: 16px;
+            line-height: 1.625;
+            color: var(--color-text-secondary);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--color-white);
+            line-height: 1.43;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--color-bg-input);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            font-size: 16px;
+            color: var(--color-white);
+            line-height: 1.15;
+            transition: all 0.3s;
+        }
+
+        input::placeholder {
+            color: var(--color-placeholder);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--color-white);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        input:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px 32px;
+            background: var(--color-white);
+            color: var(--color-black);
+            border: none;
+            border-radius: 9999px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 16px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 24px rgba(255, 255, 255, 0.2);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-link {
+            text-align: center;
+            font-size: 14px;
+            color: var(--color-text-muted);
+            margin-top: 24px;
+        }
+
+        .login-link a {
+            color: var(--color-white);
+            text-decoration: none;
+            font-weight: 400;
+            transition: opacity 0.3s;
+        }
+
+        .login-link a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* Right Panel - Image */
+        .image-panel {
+            position: relative;
+            background: var(--color-bg-dark);
+            overflow: hidden;
+        }
+
+        .image-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 50%, #ec4899 100%);
+            opacity: 0.8;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .signup-container {
+                max-width: 640px;
+                height: auto;
+                grid-template-columns: 1fr;
+            }
+
+            .image-panel {
+                display: none;
+            }
+
+            .form-panel {
+                padding: 60px 48px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 0;
+            }
+
+            .signup-container {
+                border-radius: 0;
+                height: 100vh;
+            }
+
+            .form-panel {
+                padding: 40px 24px;
+            }
+
+            .form-content {
+                max-width: 100%;
+            }
+
+            .form-header h1 {
+                font-size: 28px;
+            }
+
+            .form-header p {
+                font-size: 14px;
+            }
+        }
+
+        /* Password Strength Indicator (Optional Enhancement) */
+        .password-hint {
+            font-size: 12px;
+            color: var(--color-text-muted);
+            margin-top: -8px;
+        }
+
+        /* Error State */
+        input.error {
+            border-color: #DC2626;
+        }
+
+        .error-message {
+            font-size: 12px;
+            color: #DC2626;
+            margin-top: -8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <!-- Left Panel - Form -->
+        <div class="form-panel">
+            <div class="form-content">
+                <div class="logo">CollabX</div>
+                
+                <div class="form-header">
+                    <h1>Create your CollabX account</h1>
+                    <p>Find project partners who match your skills and availability.</p>
+                </div>
+
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="fullname" 
+                            placeholder="Enter your name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="Enter your email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            placeholder="Create a password"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input 
+                            type="password" 
+                            id="confirm-password" 
+                            name="confirm-password" 
+                            placeholder="Re-enter your password"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="submit-btn">Create Account</button>
+                </form>
+
+                <div class="login-link">
+                    Already have an account? <a href="login.html">Login</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Atmospheric Background -->
+        <div class="image-panel">
+            <!-- <div class="image-background"></div>
+            <div class="image-overlay"></div> -->
+            <img src="images/signup.avif" alt="">
+        </div>
+    </div>
+
+    <script type="module" src="js/config.js"></script>
+    <script type="module" src="js/signup.js"></script>
+</body>
+</html>
