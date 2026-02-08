@@ -444,7 +444,9 @@
   <nav>
     <div class="nav-container">
       <div class="nav-left">
-        <a href="index.html" class="nav-logo">CollabX</a>
+        <a class="nav-logo"><span
+            style="padding: 3px 3px; border-radius: 0px; color: #fff; margin-right: 16px; cursor: pointer;"
+            onclick="window.location.href='MyProfile.html'"><</span>CollabX</a>
         <div class="nav-links">
           <a href="discover.html" class="nav-link">Discover</a>
           <a href="dashboard.html" class="nav-link active">Dashboard</a>
@@ -454,7 +456,7 @@
       <div class="nav-right">
         <i data-lucide="menu" class="nav-icon mobile-menu-btn"></i>
 
-        <i data-lucide="bell" class="nav-icon"></i>
+
         <button id="logoutBtn"
           style="background: transparent; color: var(--color-text-secondary); padding: 10px 20px; border: 1px solid var(--color-border); cursor: pointer; border-radius: 9999px; font-size: 14px; font-weight: 500; margin-right: 10px; transition: all 0.2s;">Logout</button>
 
@@ -465,7 +467,7 @@
   <main>
     <div class="page-header">
       <h2 id="userGreeting">Hello, User</h2>
-      <h1>Manage your collaboration requests</h1>
+      <h1 style="margin-bottom: 12px;">Manage your collaboration requests</h1>
     </div>
 
     <div class="dashboard-section">
@@ -485,7 +487,6 @@
         <div id="receivedRequests"></div>
       </div>
 
-
     </div>
 
     <div class="dashboard-section">
@@ -503,11 +504,10 @@
 
 
   <script type="module" src="js/config.js"></script>
-  <script src="js/logout.js"></script>
+  <script type="module" src="js/logout.js"></script>
   <script type="module" src="js/dashboard.js"></script>
   <script>
     lucide.createIcons();
   </script>
 </body>
-
 </html>

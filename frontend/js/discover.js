@@ -58,7 +58,7 @@ async function loadPartners() {
       card.innerHTML = `
         <div class="card-header">
           <div class="partner-avatar">
-            <img src="${user.photoURL || 'images/avatar1.jpg'}" alt="${user.name}" style="object-fit:cover;"> 
+            <img src="${'images/default.jpg' || user.photoURL}" alt="${user.name}" style="object-fit:cover;"> 
           </div>
           <div class="partner-info">
             <h3>${user.name}</h3>

@@ -132,7 +132,7 @@ async function loadSentRequests() {
       card.innerHTML = `
         <div class="card-left">
             <div class="card-avatar">
-                 <img src="images/avatar4.jpg" alt="${user.name}">
+                 <img src="/images/default.jpg" alt="${user.name}">
             </div>
             <div class="card-info">
                 <h3>${user.name}</h3>
@@ -211,7 +211,7 @@ async function loadMatches() {
       card.innerHTML = `
         <div class="card-left">
             <div class="card-avatar">
-                <img src="images/avatar1.jpg" alt="${user.name}">
+                <img src="images/default.jpg" alt="${user.name}">
             </div>
             <div class="card-info">
                 <h3>${user.name}</h3>
