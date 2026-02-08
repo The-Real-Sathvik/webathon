@@ -1,0 +1,23 @@
+{
+  "users": {
+    "uid_123": {
+      "name": "Admin User",
+      "email": "admin@collabx.com",
+      "role": "admin",
+      "status": "active"
+    },
+    "uid_456": {
+      "name": "Test User",
+      "email": "user@collabx.com",
+      "role": "user",
+      "status": "active"
+    }
+  },
+  "requests": {
+    "req_001": {
+      "fromUserId": "uid_456",
+      "toUserId": "uid_123",
+      "status": "pending"
+    }
+  }
+}
